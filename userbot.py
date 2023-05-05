@@ -11,7 +11,7 @@ from modules.posts import TextPost, PicturePost, StickerPost, RandomPost
 spam_from_channel = False
 send_chat = None
 last_media_group = 123
-spam_posts = [TextPost("1st!")]
+spam_posts = [TextPost("Привет")]
 app = Client("data/my_account", config_file="data/config.ini", workers=1)
 delay = 0
 sys.tracebacklimit = 0
