@@ -1,31 +1,18 @@
-# -*- coding: utf-8 -*-
-#  _____  _       _              _
-# |  __ \| |     | |            (_)                
-# | |__) | |_   _| |_ ___  _ __  _ _   _ _ __ ___  
-# |  ___/| | | | | __/ _ \| '_ \| | | | | '_ ` _ \ 
-# | |    | | |_| | || (_) | | | | | |_| | | | | | |
-# |_|    |_|\__,_|\__\___/|_| |_|_|\__,_|_| |_| |_|
-# Bugs? Check for new version: https://github.com/plutonium777/telegram_comments_spamer_userbot
-# Still bugs? https://t.me/wasd_plutonium
 import sys
 import logging
+import time
 from asyncio import sleep
 from datetime import datetime
 from pyrogram import Client, filters
 from pyrogram.errors.exceptions import ChannelPrivate
 from modules.posts import TextPost, PicturePost, StickerPost, RandomPost
 
-# Channel Spam - switch between profile (False) and channel (True)
+
 spam_from_channel = False
-# Chat (Sender) - stores chat from which bot will spam (profile or channels)
 send_chat = None
-# Using to avoid media group bug
 last_media_group = 123
-# Spam Posts - stores posts to spam, supported types: TextPost, PicturePost, StickerPost, RandomPost
 spam_posts = [TextPost("1st!")]
-# App - stores Pyrogram instance
 app = Client("data/my_account", config_file="data/config.ini", workers=1)
-# Delay - delay between requests
 delay = 0
 sys.tracebacklimit = 0
 pyrogram_logging = logging.WARNING
@@ -69,6 +56,7 @@ async def answer(_, message):
 
     await sleep_if_required(delay)
     for post in spam_posts:
+        time.sleep(30)
         await post.reply_to(message_to_answer, app)
 
     logger.info(f"|{message.chat.title}|:Answered.")
@@ -83,7 +71,7 @@ async def get_forwarded_in_linked(message_id, linked):  # TODO: Check for forwar
 
 
 async def init_sender(_chat):
-    # TODO: Enter = default, Error logs
+    
     global send_chat
 
     if send_chat:
